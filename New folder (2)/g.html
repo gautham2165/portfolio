@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gautham Reddy - Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to bottom, #1e2a44, #e2e8f0);
+            color: #f8fafc;
+            font-family: 'Courier New', Courier, monospace;
+            position: relative;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        .wave-bg {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%232dd4bf" fill-opacity="0.3" d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,138.7C672,128,768,160,864,181.3C960,203,1056,213,1152,192C1248,171,1344,117,1392,90.7L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') repeat-x;
+            animation: wave 10s linear infinite;
+            z-index: -1;
+        }
+        @keyframes wave {
+            0% { background-position: 0 0; }
+            100% { background-position: 1440px 0; }
+        }
+        .section-title {
+            border: 2px solid #2dd4bf;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            font-weight: bold;
+            text-shadow: 0 0 3px rgba(45, 212, 191, 0.5);
+        }
+        .card {
+            background: #1e2a44;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 0 8px rgba(45, 212, 191, 0.3);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .skill-tag {
+            display: inline-block;
+            background: rgba(45, 212, 191, 0.1);
+            border: 1px solid #2dd4bf;
+            padding: 0.3rem 0.8rem;
+            margin: 0.3rem;
+            border-radius: 0.3rem;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            box-shadow: 0 0 4px rgba(45, 212, 191, 0.3);
+            transition: all 0.3s ease;
+            animation: float 4s ease-in-out infinite;
+        }
+        .skill-tag:hover {
+            background: rgba(244, 114, 182, 0.2);
+            border-color: #f472b6;
+            box-shadow: 0 0 8px rgba(244, 114, 182, 0.5);
+            transform: scale(1.05);
+        }
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+        .nav-link {
+            color: #f8fafc;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #2dd4bf;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #2dd4bf;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border: 4px solid #2dd4bf;
+            box-shadow: 0 0 8px rgba(45, 212, 191, 0.5);
+        }
+        nav {
+            background: #1e2a44;
+            box-shadow: 0 0 8px rgba(45, 212, 191, 0.3);
+        }
+        a:hover {
+            text-shadow: 0 0 3px rgba(45, 212, 191, 0.5);
+        }
+        h1, h2, h3, p, li, span {
+            font-family: 'Courier New', Courier, monospace;
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 0 0 3px rgba(45, 212, 191, 0.5);
+        }
+        h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-shadow: 0 0 2px rgba(244, 114, 182, 0.3);
+        }
+        p, li, span {
+            font-size: 1.1rem;
+        }
+        .text-gray-400 {
+            color: #cbd5e1;
+        }
+        .github-btn {
+            display: inline-block;
+            background: rgba(45, 212, 191, 0.2);
+            border: 1px solid #2dd4bf;
+            color: #f8fafc;
+            padding: 0.5rem 1rem;
+            margin-top: 1rem;
+            border-radius: 0.3rem;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        .github-btn:hover {
+            background: rgba(244, 114, 182, 0.2);
+            border-color: #f472b6;
+            box-shadow: 0 0 8px rgba(244, 114, 182, 0.5);
+            transform: scale(1.05);
+        }
+        .code-preview {
+            display: none;
+            position: absolute;
+            top: 0;
+            right: -250px;
+            width: 200px;
+            background: #1e2a44;
+            padding: 1rem;
+            border: 1px solid #2dd4bf;
+            border-radius: 0.3rem;
+            font-size: 0.9rem;
+            box-shadow: 0 0 8px rgba(45, 212, 191, 0.5);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            color: #f8fafc;
+        }
+        .card:hover .code-preview {
+            display: block;
+            opacity: 1;
+        }
+        .holo-container {
+            perspective: 1000px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .holo-card {
+            background: #1e2a44;
+            border: 2px solid #2dd4bf;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 0 10px rgba(45, 212, 191, 0.5);
+            transform: rotateY(0deg) translateZ(0);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            position: relative;
+            opacity: 0;
+            animation: bootUp 1s ease forwards;
+        }
+        .holo-card:nth-child(1) { animation-delay: 0.2s; }
+        .holo-card:nth-child(2) { animation-delay: 0.4s; }
+        .holo-card:nth-child(3) { animation-delay: 0.6s; }
+        .holo-card:hover {
+            transform: rotateY(10deg) translateZ(50px);
+            box-shadow: 0 0 15px rgba(244, 114, 182, 0.7);
+        }
+        @keyframes bootUp {
+            0% { opacity: 0; transform: rotateY(-20deg) translateZ(-100px); }
+            100% { opacity: 1; transform: rotateY(0) translateZ(0); }
+        }
+        .holo-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(45, 212, 191, 0.2));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .holo-card:hover::before {
+            opacity: 1;
+        }
+        .scanline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #2dd4bf;
+            opacity: 0;
+            transition: top 0.5s ease, opacity 0.5s ease;
+        }
+        .holo-card:hover .scanline {
+            top: 100%;
+            opacity: 0.5;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(244, 114, 182, 0.2);
+            border-radius: 5px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+        .progress {
+            height: 100%;
+            background: #2dd4bf;
+            transition: width 2s ease;
+        }
+        .academic-info {
+            font-size: 1.1rem;
+            color: #2dd4bf;
+            font-weight: bold;
+            margin: 0.5rem 0;
+            text-shadow: 0 0 2px rgba(45, 212, 191, 0.5);
+        }
+        .achievement-badge {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: #f472b6;
+            border-radius: 50%;
+            margin-left: 0.5rem;
+            box-shadow: 0 0 8px rgba(244, 114, 182, 0.5);
+            vertical-align: middle;
+        }
+        .education-icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+        .terminal-ticker {
+            background: #1e2a44;
+            padding: 0.5rem;
+            border: 1px solid #2dd4bf;
+            border-radius: 0.3rem;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            color: #2dd4bf;
+            white-space: nowrap;
+            overflow: hidden;
+            position: relative;
+        }
+        .ticker-text {
+            display: inline-block;
+            animation: type 4s steps(30) infinite;
+        }
+        @keyframes type {
+            0% { width: 0; }
+            50% { width: 100%; }
+            100% { width: 0; }
+        }
+        .contact-link {
+            color: #2dd4bf;
+            font-weight: bold;
+            text-shadow: 0 0 2px rgba(45, 212, 191, 0.5);
+            margin: 0.5rem 0;
+            display: inline;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .contact-link:hover {
+            color: #f472b6;
+            text-shadow: 0 0 3px rgba(244, 114, 182, 0.5);
+        }
+        .cv-download {
+            display: inline-block;
+            background: rgba(45, 212, 191, 0.2);
+            border: 1px solid #2dd4bf;
+            color: #f8fafc;
+            padding: 0.5rem 1rem;
+            margin-top: 1rem;
+            border-radius: 0.3rem;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        .cv-download:hover {
+            background: rgba(244, 114, 182, 0.2);
+            border-color: #f472b6;
+            box-shadow: 0 0 8px rgba(244, 114, 182, 0.5);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="wave-bg"></div>
+
+    <nav class="p-4 sticky top-0 z-10">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1>Gautham Reddy</h1>
+            <div class="space-x-4">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#certificates" class="nav-link">Certificates</a>
+                <a href="#education" class="nav-link">Education</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="container mx-auto py-12 text-center">
+        <h1>Welcome to My Portfolio</h1>
+        <p>Gautham Reddy - Aspiring Data Analyst & Software Developer</p>
+        <img src="image/WhatsApp Image 2025-03-19 at 14.17.10_5c9ac655.jpg" alt="Gautham Reddy Profile Picture" class="rounded-full mx-auto mb-6 profile-img">
+        <a href="https://drive.google.com/uc?export=download&id=1lpjYBX_oERMVKuJKKpmMPthDoJ86DGDJ" class="cv-download" download>Download CV</a>
+    </section>
+
+    <section id="about" class="container mx-auto py-12">
+        <h2 class="section-title">About Me</h2>
+        <div class="card">
+            <p>
+                I am a Computer Science and Engineering student at Lovely Professional University, passionate about data analysis, machine learning, and software development. With a strong foundation in data structures, algorithms, and tools like Tableau and R, I aim to solve real-world problems through technology. My projects and certifications reflect my dedication to continuous learning and professional growth.
+            </p>
+        </div>
+    </section>
+
+    <section id="skills" class="container mx-auto py-12">
+        <h2 class="section-title">Skills</h2>
+        <div class="card">
+            <div class="flex flex-wrap" id="skills-list">
+                <span class="skill-tag">C++</span>
+                <span class="skill-tag">Java</span>
+                <span class="skill-tag">R</span>
+                <span class="skill-tag">HTML</span>
+                <span class="skill-tag">CSS</span>
+                <span class="skill-tag">Data Structures</span>
+                <span class="skill-tag">Operating Systems</span>
+                <span class="skill-tag">Computer Networks</span>
+                <span class="skill-tag">Team Player</span>
+                <span class="skill-tag">Time Management</span>
+                <span class="skill-tag">Adaptability</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="container mx-auto py-12">
+        <h2 class="section-title">Projects</h2>
+        <div class="card relative">
+            <h3>Machine Learning Model Comparison Using Cross-Validation</h3>
+            <p>
+                Implemented 10-fold cross-validation to compare the performance of three machine learning algorithms—Decision Tree, k-Nearest Neighbors (k-NN), and Support Vector Machine (SVM)—on the Iris dataset. Evaluated model accuracy to determine the best-performing classifier.
+            </p>
+            <p><strong>Libraries Used:</strong> caret, e1071, kknn (for k-NN), rpart (for Decision Tree)</p>
+            <a href="https://github.com/gautham2165/matrix.py" target="_blank" class="github-btn">View Code</a>
+            <div class="code-preview">train <- trainControl(method="cv", number=10)</div>
+        </div>
+        <div class="card relative">
+            <h3>HR Analysis Dashboard Using Tableau</h3>
+            <p>
+                Developed an interactive HR Analytics Dashboard in Tableau to analyze workforce trends and optimize HR strategies. The dashboard provides insights into employee distribution, attrition, tenure, diversity, salary trends, and predictive analytics for attrition forecasting.
+            </p>
+            <p><strong>Technologies Used:</strong> Tableau for visualization, Excel/CSV for dataset, Data Cleaning & Transformation</p>
+            <a href="https://github.com/gautham2165/hr-dashboard" target="_blank" class="github-btn">View Code</a>
+            <div class="code-preview">LOAD DATA INFILE 'hr_data.csv'</div>
+        </div>
+    </section>
+
+    <section id="certificates" class="container mx-auto py-12">
+        <h2 class="section-title">Certificates</h2>
+        <div class="card">
+            <ul class="list-disc list-inside">
+                <li>Data Analysis with Tableau (Salesforce)</li>
+                <li>Supervised Machine Learning: Regression and Classification (Stanford University)</li>
+                <li>Excel Power Tools for Data Analysis (Macquarie University)</li>
+                <li>R Programming (Johns Hopkins University)</li>
+                <li>Programming in C++: A Hands-on Introduction (Codio)</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="education" class="container mx-auto py-12">
+        <h2 class="section-title">Education</h2>
+        <div class="terminal-ticker">
+            <span class="ticker-text">> Loading Academic Achievements...</span>
+        </div>
+        <div class="holo-container">
+            <div class="holo-card">
+                <div class="scanline"></div>
+                <h3>
+                    <img src="https://img.icons8.com/ios-filled/50/2dd4bf/graduation-cap.png" alt="Graduation Cap" class="education-icon">
+                    Lovely Professional University
+                    <span class="achievement-badge"></span>
+                </h3>
+                <p>Bachelor of Technology - Computer Science and Engineering</p>
+                <p class="academic-info">CGPA: 6.6/10</p>
+                <p class="text-sm text-gray-400">Since August 2022</p>
+                <p>Specializing in Data Analysis and Machine Learning, with hands-on projects in AI.</p>
+                <div class="progress-bar" data-progress="66">
+                    <div class="progress"></div>
+                </div>
+            </div>
+            <div class="holo-card">
+                <div class="scanline"></div>
+                <h3>
+                    <img src="https://img.icons8.com/ios-filled/50/f472b6/book.png" alt="Book" class="education-icon">
+                    Narayana Junior College
+                    <span class="achievement-badge"></span>
+                </h3>
+                <p>Intermediate</p>
+                <p class="academic-info">Marks: 82%</p>
+                <p class="text-sm text-gray-400">April 2020 - March 2022</p>
+                <p>Mastered core science and math, laying groundwork for tech innovation.</p>
+                <div class="progress-bar" data-progress="82">
+                    <div class="progress"></div>
+                </div>
+            </div>
+            <div class="holo-card">
+                <div class="scanline"></div>
+                <h3>
+                    <img src="https://img.icons8.com/ios-filled/50/2dd4bf/school.png" alt="School" class="education-icon">
+                    Narayana Techno School
+                    <span class="achievement-badge"></span>
+                </h3>
+                <p>Matriculation</p>
+                <p class="academic-info">CGPA: 10/10</p>
+                <p class="text-sm text-gray-400">April 2019 - March 2020</p>
+                <p>Sparked passion for coding and problem-solving.</p>
+                <div class="progress-bar" data-progress="100">
+                    <div class="progress"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="container mx-auto py-12">
+        <h2 class="section-title">Contact Me</h2>
+        <div class="holo-container">
+            <div class="holo-card">
+                <div class="scanline"></div>
+                <h3>
+                    <img src="https://img.icons8.com/ios-filled/50/2dd4bf/email.png" alt="Email Icon" class="education-icon">
+                    Get in Touch
+                    <span class="achievement-badge"></span>
+                </h3>
+                <p>I'm excited to connect! Reach out via the contact details below.</p>
+                <p>Email: <a href="mailto:guttigautham5@gmail.com" class="contact-link">guttigautham5@gmail.com</a></p>
+                <p>GitHub: <a href="https://github.com/gautham2165" target="_blank" class="contact-link">github.com/gautham2165</a></p>
+                <p>LinkedIn: <a href="https://www.linkedin.com/in/gautham-reddy13/" target="_blank" class="contact-link">linkedin.com/in/gautham-reddy13</a></p>
+                <p>Mobile: <a href="tel:+919052150524" class="contact-link">+91-9052150524</a></p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-center py-4">
+        <p>© 2025 Gautham Reddy. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-link').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Animate cards on scroll
+        const cards = document.querySelectorAll('.card, .holo-card');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+        cards.forEach(card => {
+            observer.observe(card);
+        });
+
+        // Animate skills tags on scroll
+        const skillsList = document.getElementById('skills-list');
+        const skillTags = skillsList.querySelectorAll('.skill-tag');
+        const skillsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    skillTags.forEach((tag, index) => {
+                        setTimeout(() => {
+                            tag.style.opacity = '1';
+                            tag.style.transform = 'translateY(0)';
+                        }, index * 100);
+                    });
+                    skillsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        skillTags.forEach(tag => {
+            tag.style.opacity = '0';
+            tag.style.transform = 'translateY(20px)';
+            tag.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        });
+        skillsObserver.observe(skillsList);
+
+        // Dynamically set progress bar widths based on data-progress attribute
+        document.querySelectorAll('.progress-bar').forEach(bar => {
+            const progress = bar.dataset.progress || 60; // Fallback to 60% if no data-progress
+            bar.querySelector('.progress').style.width = `${progress}%`;
+        });
+    </script>
+</body>
+</html>
